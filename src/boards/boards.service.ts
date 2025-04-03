@@ -41,7 +41,12 @@ export class BoardsService {
     }
 
     // ID 값을 통해 게시물 조회 -> 반환 타입을 바꿔서 undefined 허용 (대안)
-    // getBoardById2(id : string): Board | undefined {
+    // getBoardById(id : string): Board | undefined {
+    //     return this.boards.find((board) => board.id === id);
+    // }
+
+    // ID 값을 통해 게시물 조회 -> 오류 나던 코드 업데이트
+    // getBoardById(id: string): Board {
     //     return this.boards.find((board) => board.id === id);
     // }
 }
