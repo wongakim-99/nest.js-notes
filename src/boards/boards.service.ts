@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Board, BoardStatus } from './board.model';
 import { v1 as uuid } from 'uuid';
 import { CreateBoardDto } from './dto/create-board.dto';
+import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class BoardsService {
@@ -28,4 +29,19 @@ export class BoardsService {
         this.boards.push(board);
         return board;
     }
+
+    // ID 값을 통해 게시물 조회 -> 예외 처리(오직 Board 만 반환하고 싶은 경우)
+    getBoardById(id: string): Board {
+        const found = this.boards.find((board) => board.id === id);
+        if (!found) {
+            throw new NotFoundException(`해당 게시물 ID(${id})를 찾을 수 없습니다.`);
+        }
+        return found;
+        // return this.boards.find((board) => board.id === id);
+    }
+
+    // ID 값을 통해 게시물 조회 -> 반환 타입을 바꿔서 undefined 허용 (대안)
+    // getBoardById2(id : string): Board | undefined {
+    //     return this.boards.find((board) => board.id === id);
+    // }
 }
