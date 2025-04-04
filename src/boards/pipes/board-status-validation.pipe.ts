@@ -29,3 +29,15 @@ export class BoardStatusValidationPipe implements PipeTransform {
         return index !== -1;
     }
 }
+
+
+// import { ArgumentMetadata, PipeTransform } from '@nestjs/common';
+//
+// export class BoardStatusValidationPipe implements PipeTransform {
+//     transform(value: any, metadata: ArgumentMetadata): any {
+//         console.log('value', value);
+//         console.log('metadata', metadata);
+//
+//         return value;
+//     }
+// }
