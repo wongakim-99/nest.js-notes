@@ -13,7 +13,7 @@ export class BoardsController {
     }
 
     @Post()
-    @UsePipes(new ValidationPipe())
+    @UsePipes(ValidationPipe)
     createBoard(
         @Body() createBoardDto: CreateBoardDto
     ): Board {
