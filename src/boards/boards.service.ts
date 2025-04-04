@@ -52,7 +52,8 @@ export class BoardsService {
 
     // ID 값을 통해 특정 게시물 삭제
     deleteBoard(id: string): void {
-        this.boards = this.boards.filter((board) => board.id !== id);
+        const found = this.getBoardById(id);
+        this.boards = this.boards.filter((board) => board.id !== found.id);
     }
 
     // 특정 게시물의 상태 업데이트
