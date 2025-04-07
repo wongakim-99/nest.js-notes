@@ -6,9 +6,8 @@ import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class BoardsService {
-
     //다른 컴포넌트에서 boards 라는 배열 수정 가능성 차단하기 위해 private 선언
-    private boards: Board[] = [];  // 게시판에 대한 데이터 담는 배열
+    private boards: Board[] = []; // 게시판에 대한 데이터 담는 배열
 
     // 전체 게시글 조회 메서드
     getAllBoards(): Board[] {
@@ -17,14 +16,14 @@ export class BoardsService {
 
     // 게시물 생성 메서드
     createBoard(createBoardDto: CreateBoardDto): Board {
-        const {title, description} = createBoardDto;
+        const { title, description } = createBoardDto;
 
         const board: Board = {
             id: uuid(),
             title,
             description,
             status: BoardStatus.PUBLIC,
-        }
+        };
 
         this.boards.push(board);
         return board;
@@ -34,7 +33,9 @@ export class BoardsService {
     getBoardById(id: string): Board {
         const found = this.boards.find((board) => board.id === id);
         if (!found) {
-            throw new NotFoundException(`해당 게시물 ID(${id})를 찾을 수 없습니다.`);
+            throw new NotFoundException(
+                `해당 게시물 ID(${id})를 찾을 수 없습니다.`,
+            );
         }
         return found;
         // return this.boards.find((board) => board.id === id);

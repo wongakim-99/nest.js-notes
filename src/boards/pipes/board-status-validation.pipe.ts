@@ -2,34 +2,29 @@ import { BadRequestException, PipeTransform } from '@nestjs/common';
 import { BoardStatus } from '../board.model';
 
 export class BoardStatusValidationPipe implements PipeTransform {
-    readonly StatusOptions = [
-        BoardStatus.PUBLIC,
-        BoardStatus.PRIVATE,
-    ]
+    readonly StatusOptions = [BoardStatus.PUBLIC, BoardStatus.PRIVATE];
 
-    transform(value: any) {
+    transform(value: string) {
         console.log('value', value);
         console.log('typeof value', typeof value);
-        console.log('instanceof String', value instanceof String);
-
-        if (typeof value !== 'string') {
-            throw new BadRequestException('Status must be a string');
-        }
 
         value = value.toUpperCase();
 
         if (!this.isStatusValid(value)) {
-            throw new BadRequestException(`${value} isn't in the status validation`)
+            throw new BadRequestException(
+                `${value} isn't in the status validation`,
+            );
         }
         return value;
     }
 
-    private isStatusValid(status: any) {
-        const index = this.StatusOptions.indexOf(status);
+    private isStatusValid(status: unknown): boolean {
+        if (typeof status !== 'string') return false;
+
+        const index = this.StatusOptions.indexOf(status as BoardStatus);
         return index !== -1;
     }
 }
-
 
 // import { ArgumentMetadata, PipeTransform } from '@nestjs/common';
 //
